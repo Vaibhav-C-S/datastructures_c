@@ -8,9 +8,9 @@ int countDigits(int n){
 	int rem=0;
 	int count=0;
 	while( n!=0){
-		rem = n%10;
+		
 		count++;
-		rev=rev*10 + rem;
+		
 		n=n/10;
 	}
 	
