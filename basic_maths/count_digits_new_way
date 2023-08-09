@@ -1,0 +1,8 @@
+#include <iostream>
+using namespace std;
+#include <bits/stdc++.h>
+int countDigits(int n){
+	int count = (int)(log10(n) + 1);
+    return count;
+	
+}
