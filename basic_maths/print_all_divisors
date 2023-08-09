@@ -1,0 +1,19 @@
+int sumOfAllDivisors(int n){
+	vector<int>v;
+	int sum=0;
+	while(n>0){
+		for(int i=1;i*i<=n;i++){
+			if(n%i==0){
+				v.emplace_back(i);
+				if((n/i)!=i){
+					v.emplace_back(n/i);
+				}
+			}
+		}
+
+		n--;
+	}	
+	return accumulate(v.begin(),v.end(),0);
+}
+------------------
+timecomplexity-O(root n)
