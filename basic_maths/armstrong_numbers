@@ -1,0 +1,51 @@
+Problem Statement
+
+
+
+
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1 :
+1
+
+
+Sample Output 1 :
+true
+
+
+Explanation Of Sample Input 1 :
+1 is an Armstrong number as, 1^1 = 1.
+
+
+Sample Input 2 :
+103
+
+
+Sample Output 2 :
+false
+
+
+Expected Time Complexity:
+Try to solve this in O(log(n)). 
+
+
+Constraints:
+1 <= ‘n’ <= 10^9
+
+Time Limit: 1 sec
+---------------------------------------------------------------------------------------------------
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int temp=x;
+        long r=0;
+        while(temp){
+            r=r*10+temp%10;
+            temp=temp/10; 
+        }
+        if((r==x) && r>=0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+};
