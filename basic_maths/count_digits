@@ -16,3 +16,5 @@ int countDigits(int n){
 	
 	return count;
 }
+-------------------
+time complexity-log10(n)
