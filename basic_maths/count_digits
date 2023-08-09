@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+int countDigits(int n){
+
+	// Write your code here.	
+	int rev=0;
+	int rem=0;
+	int count=0;
+	while( n!=0){
+		rem = n%10;
+		count++;
+		rev=rev*10 + rem;
+		n=n/10;
+	}
+	
+	return count;
+}
