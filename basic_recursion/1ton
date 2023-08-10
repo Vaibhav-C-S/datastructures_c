@@ -1,0 +1,13 @@
+vector<int> printNos(int x) {
+
+    static vector <int> v;
+    static int i=1;
+    if(i>x){
+        return v;
+    }else{
+        v.push_back(i);
+        i++;
+        printNos(x);
+    }
+    
+}
