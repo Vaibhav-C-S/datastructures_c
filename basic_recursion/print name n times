@@ -1,0 +1,10 @@
+vector<string> printNTimes(int n) {
+	static int i=1;
+	static vector<string> v;
+	if(i>n){
+		return v;
+	}
+	v.push_back("Coding Ninjas ");
+	i++;
+	return printNTimes(n);
+}
