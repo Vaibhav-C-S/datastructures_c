@@ -1,0 +1,9 @@
+int sumFirstN(int n) {
+    static auto sum=0;
+    if(n==0){
+        return sum;
+
+    }
+    sum=sum+n;
+    return sumFirstN(n-1);
+}
