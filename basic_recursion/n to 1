@@ -1,0 +1,9 @@
+vector<int> printNos(int x) {
+    static vector <int> v;
+    if(x<1){
+        return v;
+
+    }
+    v.emplace_back(x);
+    return printNos(x-1);
+}
