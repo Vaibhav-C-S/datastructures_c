@@ -1,0 +1,13 @@
+vector<int> reverseArray(int n, vector<int> &nums)
+{
+    static int i=0;
+    if(i>=(n-i-1)){
+        return nums;
+    }
+    else{
+        swap(nums[i],nums[n-i-1]);
+        i++;
+        return reverseArray(n,nums);
+    }
+
+}
