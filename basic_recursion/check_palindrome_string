@@ -1,0 +1,13 @@
+bool check(int i,int n,string &str){
+    if (i>=n/2){
+        return true;
+    }
+    if(str[i]==str[n-i-1]){
+        return true && check(i+1,n,str);
+    }else{
+        return false;
+    }
+}
+bool isPalindrome(string& str) {
+    return check(0,str.length(),str);
+}
