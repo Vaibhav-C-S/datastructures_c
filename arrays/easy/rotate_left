@@ -1,0 +1,17 @@
+
+vector<int> rotateArray(vector<int>a, int k) {
+    int n=a.size();
+    vector <int> temp;
+    for(int i=0;i<k;i++){
+        temp.emplace_back(a[i]);
+    }
+    for(int i=k;i<n;i++){
+        a[i-k]=a[i];
+    }
+    
+    for(int i=n-k;i<n;i++){
+        a[i]=temp[i-(n-k)];
+    }
+    return a;
+
+}
