@@ -1,0 +1,10 @@
+#include <bits/stdc++.h> 
+vector<int> rotateArray(vector<int>& a, int n) {
+    // Write your code here.
+    int temp=a[0];
+    for(int j=1;j<n;j++){
+        a[j-1]=a[j];
+    }
+    a[n-1]=temp;
+    return a;
+}
