@@ -1,1 +1,39 @@
-
+class Solution {
+public:
+    void rotate(vector<int>& a, int d) {
+        int n = a.size();
+        d = d % n;
+        vector<int> temp;
+        
+        // Store the last d elements in the temp vector
+        for (int i = n - d; i < n; i++) {
+            temp.push_back(a[i]);
+        }
+        
+        // Shift the remaining elements to the right
+        for (int i = n - d - 1; i >= 0; i--) {
+            a[i + d] = a[i];
+        }
+        
+        // Copy the elements from the temp vector to the beginning
+        for (int i = 0; i < d; i++) {
+            a[i] = temp[i];
+        }
+        
+    }
+};
+(brute force)
+-------------------------------------------------
+(optimal)
+class Solution {
+public:
+    void rotate(vector<int>& a, int d) {
+        int n=a.size();
+        d=d%n;
+        reverse(a.begin(),a.begin()+(n-d));
+        reverse(a.begin()+(n-d),a.begin()+n);
+        reverse(a.begin(),a.begin()+n);
+        
+        
+    }
+};
