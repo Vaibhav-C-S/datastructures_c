@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+vector<int> sortedArray(vector<int> a, vector<int> b) {
+    set<int> s;
+    for (int i = 0; i < a.size(); i++) {
+        s.insert(a[i]);
+    }
+    for (int i = 0; i < b.size(); i++) {
+        s.insert(b[i]);
+    }
+    return vector<int>(s.begin(), s.end());
+}
+-----------(brute force)
+vector<int> sortedArray(vector<int> a, vector<int> b) {
+    int i = 0, j = 0;
+    int l = a.size();
+    int r = b.size();
+    vector<int> u;
+    while (i < l && j < r) {
+        if (a[i] <= b[j]) {
+            if (u.size() == 0 || u.back() != a[i]) {
+                u.emplace_back(a[i]);
+            }
+            i++;
+        } else {
+            if (u.size() == 0 || u.back() != b[j]) {
+                u.emplace_back(b[j]);
+            }
+            j++;
+        }
+    }
+    while (i < l) {
+        if (u.size() == 0 || u.back() != a[i]) {
+            u.emplace_back(a[i]);
+        }
+        i++;
+    }
+    while (j < r) {
+        if (u.size() == 0 || u.back() != b[j]) {
+            u.emplace_back(b[j]);
+        }
+        j++;
+    }
+
+    return u;
+}
+time complexity-O(m + n)
