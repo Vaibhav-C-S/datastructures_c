@@ -1,0 +1,18 @@
+private:
+    void dfs(vector<int> &dfs, vector<int> &visited, int node, vector<int> adj[]) {
+        visited[node] = 1;
+        dfs.emplace_back(node);
+        for (auto it : adj[node]) {
+            if (!visited[it]) {
+                dfs(dfs, visited, it, adj);
+            }
+        }
+    }
+
+public:
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        vector<int> visited(V, 0);
+        vector<int> dfs;
+        dfs(dfs, visited, 0, adj);
+        return dfs;
+    }
