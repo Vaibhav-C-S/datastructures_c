@@ -1,0 +1,6 @@
+int countingGraphs(int N)
+{
+    int sum=N*(N-1)/2;
+    return pow(2,sum);
+}
+this code is for printing number of undirected graphs 
