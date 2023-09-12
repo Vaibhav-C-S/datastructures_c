@@ -1,0 +1,36 @@
+/*
+	The function is called with the parameters:
+	quickSort(input, 0, size - 1);
+
+*/
+
+int partitionArray(int a[], int low, int high) 
+{
+	int i=low;
+	int j=high;
+	int pivot=a[low];
+	while(i<j){
+		while(a[i]<=pivot && i <= high-1){
+			i++;
+		}
+		while(a[j]>pivot && j>=low+1){
+			j--;
+		}
+		if(i < j){
+			swap(a[i],a[j]);
+		}
+	}
+	swap(a[low],a[j]);
+	return j;
+}
+
+void quickSort(int input[], int low, int high) {
+	if(low < high){
+		int pIndex = partitionArray(input,low,high);
+		quickSort(input,low,pIndex-1);
+		quickSort(input,pIndex+1,high); 
+	}
+}
+---------------------
+time complexity: nlogn
+space complexity : 1
