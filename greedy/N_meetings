@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+----------------
+class Solution:
+    
+    #Function to find the maximum number of meetings that can
+    #be performed in a meeting room.
+    def maximumMeetings(self,n,start,end):
+        # code here
+        s_time=-1
+        meet=[]
+        count=0
+        for i in range(0,len(start)):
+            meet.append((start[i],end[i]))
+        meet.sort(key=lambda x:x[1])
+        
+        for start,end in meet:
+           if start > s_time:
+               count+=1
+               s_time = end
+        return count
