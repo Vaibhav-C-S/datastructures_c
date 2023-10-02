@@ -1,0 +1,32 @@
+https://practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1
+------------------------------
+#User function Template for python3
+
+class Item:
+    def __init__(self,val,w):
+        self.value = val
+        self.weight = w
+        
+class Solution:    
+    #Function to get the maximum total value in the knapsack.
+    def fractionalknapsack(self, W,arr,n):
+    
+        
+        wval=[]
+        for i in range(0,n):
+            wval.append(((arr[i].value/arr[i].weight),arr[i].value,arr[i].weight))
+        wval.sort(key= lambda x:x[0],reverse=True)
+       
+        ans=0.0
+        for _,val,weight in wval:
+            if W >= weight:
+                W-=weight
+                ans += val
+                #print(ans)
+            else:
+                ans += (val/weight)*W
+                break
+                #print(ans)
+        return ans
+
+
