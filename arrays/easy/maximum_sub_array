@@ -1,0 +1,20 @@
+
+optimal:
+
+time=0(2n)
+def longestSubarrayWithSumK(a: [int], k: int) -> int:
+    maxl=0
+    i=j=0
+    sum=a[0]
+    while j < len(a):
+        while i<=j and sum > k:
+            sum-=a[i]
+            i+=1
+        if (sum == k):
+            maxl = max(maxl,j-i+1)
+        j+=1
+        if j < len(a):
+            sum+=a[j]
+    return maxl
+    
+    
