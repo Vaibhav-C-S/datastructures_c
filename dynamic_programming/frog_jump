@@ -1,0 +1,43 @@
+memoization
+---------------------------------
+
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+from typing import *
+def frogJumps(n: int, heights: List[int],dp) -> int:
+    if n==0:
+            return 0
+    if dp[n] != -1:
+        return dp[n]
+    left= frogJumps(n-1,heights,dp)+ abs(heights[n] - heights[n-1])
+    right = 9999999
+    if n>1:
+        right = frogJumps(n-2,heights,dp)+ abs(heights[n] - heights[n-2])
+    
+    dp[n] = min(left,right)
+    return dp[n]
+  
+def frogJump(n: int, heights: List[int]) -> int:
+
+    # Write your code here.
+    dp = [-1] *(n+1)
+    return frogJumps(n-1,heights,dp)
+-----------------------------------------
+tabulation
+-----------------------------------------
+from typing import List
+
+def frogJump(n: int, heights: List[int]) -> int:
+    dp = [-1] * (n + 1)
+    dp[0] = 0
+    for i in range(1,n):
+        left = dp[i-1] + abs(heights[i] - heights[i-1])
+        right = 999999
+        if i >1:
+            right =dp[i-2] + abs(heights[i] - heights[i-2])
+            
+        dp[i] = min(left,right)
+    return dp[n-1]
