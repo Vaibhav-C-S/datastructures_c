@@ -1,0 +1,46 @@
+https://leetcode.com/problems/house-robber-ii/submissions/
+-----------------
+  
+
+
+class Solution(object):
+    
+        
+    def robber(self,nums):
+        n = len(nums)
+        if n == 0:  # Handling the edge case of an empty array
+            return 0
+        if n == 1:  # If there's only one house, return its value
+            return nums[0]
+
+        # Base cases
+        prev1 = max(nums[0], nums[1])  # Max of first two houses
+        prev2 = nums[0]  # Only the first house
+
+        # Iterate through the houses starting from the third
+        for i in range(2, n):
+            # Calculate the maximum amount that can be robbed up to the current house
+            current = max(nums[i] + prev2, prev1)
+            prev2 = prev1  # Update the values for the next iteration
+            prev1 = current
+
+        return prev1 
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums1 = []
+        nums2=[]
+        n=len(nums)
+        for i in range(0,n):
+            if (i==0):
+                nums2.append(nums[i])
+            elif i == n-1:
+                nums1.append(nums[i])
+            else:
+                nums1.append(nums[i])
+                nums2.append(nums[i])
+        return  max(self.robber(nums1),self.robber(nums2))
+    
+        
