@@ -1,0 +1,18 @@
+from typing import List
+def minize(i,k,heights,dp):
+    if i == 0:
+        return 0
+    if dp[i]!=-1:
+        return dp[i]
+    min_cost = float('inf')
+    for j in range(1,min(i,k)+1):
+        
+        jump = minize(i-j,k,heights,dp)+ abs(heights[i] - heights[i - j])
+        min_cost = min(min_cost,jump)
+    dp[i] = min_cost
+    return dp[i]
+        
+def minimizeCost(n: int, k: int, heights: List[int]) -> int:
+    dp = [-1]* n;
+    ans = minize(n-1,k,heights,dp)
+    return ans
