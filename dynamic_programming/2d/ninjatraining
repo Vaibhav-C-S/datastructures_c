@@ -1,0 +1,66 @@
+from typing import List
+
+def train(n: int, last: int, points: List[List[int]], dp) -> int:
+    if n == 0:
+        maxi = float('-inf')  # Initialize to a very small number
+        for i in range(3):  # Include all three activities
+            if i != last:
+                maxi = max(points[0][i], maxi)
+        return maxi
+    if dp[n][last] != -1:
+        return dp[n][last]
+
+    maxi = float('-inf')  # Initialize to a very small number
+    for i in range(3):  # Include all three activities
+        if i != last:
+            point = points[n][i] + train(n - 1, i, points, dp)
+            maxi = max(maxi, point)
+    
+    dp[n][last] = maxi
+    return dp[n][last]
+
+def ninjaTraining(n: int, points: List[List[int]]) -> int:
+    # Initialize the dp array with dimensions [n][3]
+    dp = [[-1 for _ in range(4)] for _ in range(n)]
+    # Use 3 as the initial 'last' activity to allow all activities on the first day
+    return train(n - 1, 3, points, dp)
+---------------------
+def ninjaTraining(n: int, points: List[List[int]]) -> int:
+    # Initialize the dp array with dimensions [n][3]
+    n = len(points)  # Assuming points is a 2D list where points[i][j] is the points for task j on day i
+    dp = [[0 for _ in range(3)] for _ in range(n)]
+
+    # Initialize the first day
+    for j in range(3):
+        dp[0][j] = points[0][j]
+
+    # Fill in the dp table
+    for i in range(1, n):
+        for last in range(3):
+            for task in range(3):
+                if task != last:
+                    dp[i][task] = max(dp[i][task], points[i][task] + dp[i-1][last])
+
+    # Find the maximum points on the last day
+    return max(dp[n-1])
+--------------------------------------
+def ninjaTraining(n: int, points: List[List[int]]) -> int:
+    # Initialize the dp array with dimensions [n][3]
+    n = len(points)  # Assuming points is a 2D list where points[i][j] is the points for task j on day i
+    prev_day = [0] * 3  # To store the max points for each task on the previous day
+
+    # Initialize the first day
+    for j in range(3):
+        prev_day[j] = points[0][j]
+
+    # Iterate through each day
+    for i in range(1, n):
+        curr_day = [0] * 3  # To store the max points for each task on the current day
+        for task in range(3):
+            for last in range(3):
+                if task != last:
+                    curr_day[task] = max(curr_day[task], points[i][task] + prev_day[last])
+        prev_day = curr_day  # Update the previous day's points
+
+    # Find the maximum points on the last day
+    return max(prev_day)
