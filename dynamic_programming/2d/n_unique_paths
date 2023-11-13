@@ -1,0 +1,102 @@
+class Solution(object):
+    def uni(self,i,j):
+        if (i==0 and j == 0):
+            return 1
+        if i < 0 or j <0:
+            return 0
+        up = self.uni(i-1,j)
+        left = self.uni(i,j-1)
+        return up+left
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        return self.uni(m-1,n-1)
+Time Complexity = O(2^(mxn))
+space - O(path length){recursion stack space]
+-------------------------------------
+class Solution(object):
+    def uni(self,i,j,dp):
+        if (i==0 and j == 0):
+            return 1
+        if i < 0 or j <0:
+            return 0
+        if dp[i][j]!=-1:
+            return dp[i][j]
+        up = self.uni(i-1,j,dp)
+        left = self.uni(i,j-1,dp)
+        dp[i][j] = up+left
+        return dp[i][j]
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp = [[-1 for _ in range(n)]for _ in range(m)]
+        return self.uni(m-1,n-1,dp)
+  time complexity - O(m*n)
+  space complexity - O(n-1 + m-1){recursion stack space}+ O(m*n){dp}
+---------------------------------------------------------
+def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp = [[0 for _ in range(n)]for _ in range(m)]
+        for i in range(0,m):
+            for j in range(0,n):
+                if i==0 and j==0:
+                    dp[i][j] = 1
+                else:
+                    up,left = 0,0
+                    if i>0: up = dp[i-1][j]
+                    if j>0: left = dp[i][j-1]
+                    dp[i][j] = up+left
+        return dp[m-1][n-1]
+time complexity - O(m*n)
+space complexity - O(m*n){dp}
+--------------------------------------------------------------
+space optimized-1
+class Solution(object):
+    
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        
+        prev = [0] * n
+        for i in range(m):
+            cur = [0] * n
+            for j in range(n):
+                if i == 0 and j == 0:
+                    cur[j] = 1  # Start point
+                else:
+                    up = 0
+                    left = 0
+                    if i > 0:
+                        up = prev[j]  # Value from the previous row
+                    if j > 0:
+                        left = cur[j - 1]  # Value from the left cell
+                    cur[j] = up + left  # Number of paths to current cell
+            prev = cur  # Current row becomes previous row for next iteration
+        return prev[n - 1]  # Return paths to bottom-right corner
+                
+
+----------------------------
+space optimized-2
+dp = [0] * n
+        dp[0] = 1  # Initialize the first cell
+
+        for i in range(m):
+            for j in range(1, n):
+                # dp[j] already contains the number of ways to get to [i][j-1]
+                # Add the number of ways to get to [i-1][j] (which is stored in dp[j] from the previous iteration)
+                dp[j] += dp[j - 1]
+
+        return dp[n - 1]
