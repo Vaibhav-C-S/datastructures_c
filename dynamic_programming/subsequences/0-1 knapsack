@@ -1,0 +1,33 @@
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+## Read input as specified in the question.
+## Print output as specified in the question.
+def knapsack(i,w,v,W,dp):
+    if i == 0:
+        if w[0]<=W:
+            return v[0]
+        else:
+            return 0
+    if dp[i][W] !=-1:
+        return dp[i][W]
+    notpick= 0 + knapsack(i-1,w,v,W,dp)
+    pick = float('-inf')
+    if w[i] <= W:
+        pick = v[i] + knapsack(i-1,w,v,W-w[i],dp)
+    dp[i][W]= max(pick,notpick)
+    return dp[i][W]
+
+
+def knap(n,w,v,W):
+    dp = [[-1 for _ in range(W+1)]for j in range(n)]
+    return knapsack(n-1,w,v,W,dp)
+t= int(input())
+for _ in range(t):
+    n = int(input())
+    w = list(map(int,input().split()))
+    v = list(map(int,input().split()))
+    W = int(input())
+    print(knap(n,w,v,W))
