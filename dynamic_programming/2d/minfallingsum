@@ -1,0 +1,74 @@
+
+class Solution(object):
+    def uni(self, i, j, grid, m, n):
+        if i>m or j>n or i<0 or j<0:
+            return float('inf')
+        if i ==0:
+            return grid[0][j]
+        
+        up = grid[i][j] + self.uni(i-1,j,grid,m,n)
+        upleft = grid[i][j]+ self.uni(i-1,j-1,grid,m,n)
+        upright = grid[i][j]+ self.uni(i-1,j+1,grid,m,n)
+        return min(up,upleft,upright)
+
+    def minFallingPathSum(self, grid):
+        m = len(grid)
+        n = len(grid[0])
+       
+        ans=float('inf')
+        for col in range(0,n):
+            ans = min(ans,self.uni(m-1,col,grid,m,n))
+        return ans
+
+
+---------------------------------------------------------
+class Solution(object):
+    def uni(self, i, j, grid, m, n,dp):
+        if i>=m or j>=n or i<0 or j<0:
+            return float('inf')
+        if i ==0:
+            return grid[0][j]
+        if dp[i][j]!=-1:
+            return dp[i][j]
+        up = grid[i][j] + self.uni(i-1,j,grid,m,n,dp)
+        upleft = grid[i][j]+ self.uni(i-1,j-1,grid,m,n,dp)
+        upright = grid[i][j]+ self.uni(i-1,j+1,grid,m,n,dp)
+        dp[i][j] =min(up,upleft,upright)
+        return dp[i][j]
+    def minFallingPathSum(self, grid):
+        m = len(grid)
+        n = len(grid[0])
+        dp = [[-1 for _ in range(n)]for _ in range(m) ]
+        ans=float('inf')
+        
+        for col in range(0,n):
+            ans = min(ans,self.uni(m-1,col,grid,m,n,dp))
+        return ans
+-------------------------------------------------
+def minFallingPathSum(self, grid):
+        m, n = len(grid), len(grid[0])
+        dp = [grid[0][col] for col in range(n)]  # Initialize dp with the first row of the grid
+
+        for i in range(1, m):
+            temp = dp[:] # Copy of the previous row's values
+            for j in range(n):
+                up = temp[j]
+                upleft = temp[j-1] if j-1 >= 0 else float('inf')
+                upright = temp[j+1] if j+1 < n else float('inf')
+                dp[j] = grid[i][j] + min(up, upleft, upright)
+
+        return min(dp)
+-----------------------------------------------
+def minFallingPathSum(self, grid):
+        m, n = len(grid), len(grid[0])
+        dp = [grid[0][col] for col in range(n)]  # Initialize dp with the first row of the grid
+
+        for i in range(1, m):
+            temp = dp[:] # Copy of the previous row's values
+            for j in range(n):
+                up = temp[j]
+                upleft = temp[j-1] if j-1 >= 0 else float('inf')
+                upright = temp[j+1] if j+1 < n else float('inf')
+                dp[j] = grid[i][j] + min(up, upleft, upright)
+
+        return min(dp)
