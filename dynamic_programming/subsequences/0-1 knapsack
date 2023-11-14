@@ -31,3 +31,33 @@ for _ in range(t):
     v = list(map(int,input().split()))
     W = int(input())
     print(knap(n,w,v,W))
+-------------------------------------------------------
+def knapsack(i,w,v,W,dp):
+    if i == 0:
+        if w[0]<=W:
+            return v[0]
+        else:
+            return 0
+    if dp[i][W] !=-1:
+        return dp[i][W]
+    notpick= 0 + knapsack(i-1,w,v,W,dp)
+    pick = float('-inf')
+    if w[i] <= W:
+        pick = v[i] + knapsack(i-1,w,v,W-w[i],dp)
+    dp[i][W]= max(pick,notpick)
+    return dp[i][W]
+---------------------------------------------------
+def knap_optimized(n, w, v, W):
+    dp = [0 for _ in range(W+1)]
+
+    # Initialize the dp array for the first item
+    for i in range(w[0], W+1):
+        dp[i] = v[0]
+
+    # Update the dp array for the rest of the items
+    for i in range(1, n):
+        # Traverse backwards to ensure we are using previous item's values
+        for j in range(W, w[i] - 1, -1):
+            dp[j] = max(dp[j], v[i] + dp[j - w[i]])
+
+    return dp[W]
