@@ -1,0 +1,44 @@
+class Solution(object):
+    
+    def uni(self,i,j,grid):
+        if (i==0 and j == 0):
+            return 1
+        if i < 0 or j <0:
+            return 0
+        minpath = float('inf')
+        up = grid[i][j] + self.uni(i-1,j,grid)
+        left = grid[i][j]+self.uni(i,j-1,grid)
+        path = up+left
+        minpath = min(path,minpath)
+        return minpath
+    
+        
+    def minPathSum(self, grid):
+        m = len(grid)
+        n = len(grid[0])
+        return self.uni(m-1,n-1,grid)
+-------------------------------------
+class Solution(object):
+    def uni(self, i, j, grid, memo):
+        # Check if we are out of bounds
+        if i < 0 or j < 0:
+            return float('inf')
+        # If we are at the start, return its value
+        if i == 0 and j == 0:
+            return grid[0][0]
+        # Check if we have already computed this cell
+        if memo[i][j] != -1:
+            return memo[i][j]
+        # Compute the minimum path sum for this cell
+        up = grid[i][j] + self.uni(i - 1, j, grid, memo)
+        left = grid[i][j] + self.uni(i, j - 1, grid, memo)
+        memo[i][j] = min(up, left)
+        return memo[i][j]
+
+    def minPathSum(self, grid):
+        m = len(grid)
+        n = len(grid[0])
+        # Create a memoization table initialized to -1
+        memo = [[-1 for _ in range(n)] for _ in range(m)]
+        return self.uni(m - 1, n - 1, grid, memo)
+--------------------------------------------------
