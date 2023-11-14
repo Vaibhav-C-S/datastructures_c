@@ -1,0 +1,40 @@
+from os import *
+from sys import *
+from collections import *
+from math import *
+def subsetpos(i,k,arr,dp):
+    if k == 0:
+        return True
+    if i == 0:
+        return arr[0] == k 
+    if dp[i][k] != -1:
+        return dp[i][k]
+    notpick = subsetpos(i-1,k,arr,dp)
+    pick = False
+    if arr[i] <= k:
+        pick = subsetpos(i-1,k-arr[i],arr,dp)
+    dp[i][k] =  pick or notpick
+    return dp[i][k]
+def subsetSumToK(n, k, arr):
+    dp = [[-1 for _ in range(k+1)]for _ in range(n)]
+    return subsetpos(n-1,k,arr,dp)
+    
+    
+    
+
+----------------------------------------------------------
+def subsetSumToK(n, k, arr):
+    dp = [[False for _ in range(k+1)]for _ in range(n)]
+    for i in range(n):
+        dp[i][0] = True
+    if arr[0] <=k:
+        dp[0][arr[0]] = True
+    for i in range(n):
+        for k in range(k+1):
+            notpick = dp[i-1][k]
+            pick = False
+            if arr[i]<=k:
+                pick = dp[i-1][k-arr[i]]
+            dp[i][k] = pick or notpick
+    return dp[n-1][k]
+-----------------------------------------------------------
