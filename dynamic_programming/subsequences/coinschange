@@ -1,0 +1,49 @@
+class Solution:
+    def coinutil(self,i,coins,amount):
+        if i == 0:
+            if amount%coins[i] == 0:
+                return amount/coins[i]
+            else:
+                return float('inf')
+        nottake = 0 + self.coinutil(i-1,coins,amount)
+        take = float('inf')
+        if coins[i] <= amount:
+            take  = 1 + self.coinutil(i,coins,amount-coins[i])
+        return min(nottake,take)
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        n = len(coins)
+        ans = self.coinutil(n-1,coins,amount) 
+        return int(ans) if ans != float('inf') else -1
+        
+--------------------------------------------------------
+class Solution:
+    def coinutil(self,i,coins,amount,dp):
+        if i == 0:
+            if amount%coins[i] == 0:
+                return amount/coins[i]
+            else:
+                return float('inf')
+        if dp[i][amount] != -1:
+            return dp[i][amount]
+        nottake = 0 + self.coinutil(i-1,coins,amount,dp)
+        take = float('inf')
+        if coins[i] <= amount:
+            take  = 1 + self.coinutil(i,coins,amount-coins[i],dp)
+        dp[i][amount] = min(nottake,take)
+        return dp[i][amount]
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        n = len(coins)
+        dp = [[-1 for _ in range(amount+1)]for _ in range(n)]
+        ans = self.coinutil(n-1,coins,amount,dp) 
+        return int(ans) if ans != float('inf') else -1
+  -------------------------------------------------------
+  def coinChange(self, coins: List[int], amount: int) -> int:
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+
+    for coin in coins:
+        for x in range(coin, amount + 1):
+            dp[x] = min(dp[x], dp[x - coin] + 1)
+
+    return dp[amount] if dp[amount] != float('inf') else -1
+        
