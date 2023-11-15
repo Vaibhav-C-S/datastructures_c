@@ -36,6 +36,27 @@ class Solution:
         dp = [[-1 for _ in range(amount+1)]for _ in range(n)]
         ans = self.coinutil(n-1,coins,amount,dp) 
         return int(ans) if ans != float('inf') else -1
+-------------------------------------------------------
+def coinChange(self, coins: List[int], amount: int) -> int:
+    n = len(coins)
+    dp = [[float('inf') for _ in range(amount + 1)] for _ in range(n)]
+
+    # Initialize the first row
+    for i in range(amount + 1):
+        if i % coins[0] == 0:
+            dp[0][i] = i // coins[0]
+
+    # Fill in the rest of the dp array
+    for i in range(1, n):
+        for amounts in range(amount + 1):
+            nottake = dp[i - 1][amounts]
+            take = float('inf')
+            if coins[i] <= amounts:
+                take = 1 + dp[i][amounts - coins[i]]
+            dp[i][amounts] = min(nottake, take)
+
+    return dp[n - 1][amount] if dp[n - 1][amount] != float('inf') else -1
+
   -------------------------------------------------------
   def coinChange(self, coins: List[int], amount: int) -> int:
     dp = [float('inf')] * (amount + 1)
