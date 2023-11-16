@@ -1,0 +1,42 @@
+import sys
+
+int_max = (2**31) -1
+int_min = -2**31
+
+class Solution:
+    def sutil(self, s, i, n, sign, result):
+        if sign * result >= int_max:
+            return int_max
+        if sign * result <= int_min:
+            return int_min
+        if i == n:
+            return result
+        
+        if not ('0' <= s[i] <= '9'):
+            return result
+        return self.sutil(s, i + 1, n, sign, result * 10 + int(s[i]))
+
+    def myAtoi(self, s: str) -> int:
+        s = s.strip()
+        if not s:
+            return 0
+
+        sign = 1
+        if s[0] == '+':
+            s = s[1:]
+        elif s[0] == '-':
+            s = s[1:]
+            sign = -1
+
+        if not s or not ('0' <= s[0] <= '9'):
+            return 0
+
+        result = 0
+        n = len(s)
+        print(s)
+        ans= self.sutil(s, 0, n, sign, result)
+        print(ans)
+        print(sign)
+        if ans == int_min:
+            return ans
+        return sign*ans
