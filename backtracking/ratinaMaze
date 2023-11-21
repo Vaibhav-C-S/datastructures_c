@@ -1,0 +1,45 @@
+class Solution:
+    def solve(self, i, j, m, n, ans, string, vis):
+        if i == n-1 and j == n-1:
+            ans.append(string)
+            return
+        # Directions: Down, Right, Up, Left
+        directions = [(1, 0, 'D'), (0, 1, 'R'), (-1, 0, 'U'), (0, -1, 'L')]
+        for di, dj, dstr in directions:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < n and 0 <= nj < n and not vis[ni][nj] and m[ni][nj] == 1:
+                vis[ni][nj] = True
+                self.solve(ni, nj, m, n, ans, string + dstr, vis)
+                vis[ni][nj] = False
+
+    def findPath(self, m, n):
+        if m[0][0] == 0:  # Check if start cell is valid
+            return []
+        vis = [[False for _ in range(n)] for _ in range(n)]
+        ans = []
+        vis[0][0] = True
+        self.solve(0, 0, m, n, ans, "", vis)
+        return ans
+---------------
+class Solution:
+    def solve(self, i, j, m, n, ans, string, vis):
+        if i == n-1 and j == n-1:
+            ans.append(string)
+            return
+        # Directions: Down, Right, Up, Left
+        directions = [(1, 0, 'D'), (0, 1, 'R'), (-1, 0, 'U'), (0, -1, 'L')]
+        for di, dj, dstr in directions:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < n and 0 <= nj < n and not vis[ni][nj] and m[ni][nj] == 1:
+                vis[ni][nj] = True
+                self.solve(ni, nj, m, n, ans, string + dstr, vis)
+                vis[ni][nj] = False
+
+    def findPath(self, m, n):
+        if m[0][0] == 0:  # Check if start cell is valid
+            return []
+        vis = [[False for _ in range(n)] for _ in range(n)]
+        ans = []
+        vis[0][0] = True
+        self.solve(0, 0, m, n, ans, "", vis)
+        return ans
