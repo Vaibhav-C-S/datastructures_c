@@ -1,0 +1,16 @@
+class Solution:
+    def solve(self, l, r, s, d):
+        for i in range(l, r + 1):
+            prefix = s[l:i]  # Corrected prefix extraction
+            if prefix in d:
+                if i == r:
+                    return True
+                if self.solve(i, r, s, d):  # Recursive call and check if it returns True
+                    return True
+        return False
+                
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n = len(s)
+        return self.solve(0, n, s, set(wordDict))  # Convert wordDict to set for efficiency
+
+        
