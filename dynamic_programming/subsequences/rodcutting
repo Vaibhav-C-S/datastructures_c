@@ -1,0 +1,38 @@
+def f(ind,n,price):
+    if ind == 0:
+        return n * price[0]
+    nottake = 0 + f(ind-1,n,price)
+    take = float('-inf')
+    rodlength = ind+1
+    if rodlength <= n:
+        take = price[ind] + f(ind,n-rodlength,price)
+    return max(take,nottake)
+def cutRod(price, n):
+
+    return f(n-1,n,price)
+---------------------------------------
+def cutRod(price, n):
+    # Create a DP table where dp[i][j] represents the maximum value obtainable
+    # by cutting up a rod of length j using the first i pieces.
+    dp = [[0 for _ in range(n+1)] for _ in range(n)]
+
+    # Base cases: When the rod length is 0, the maximum profit is 0.
+    for i in range(1, n+1):
+        dp[i][0] = 0
+
+    # Fill the DP table iteratively.
+    for ind in range(1, n+1):
+        for N in range(1, n+1):
+            notTake = dp[ind-1][N]  # Do not cut the rod at length 'ind'.
+            take = float('-inf')
+            rodLength = ind
+            if rodLength <= N:
+                # Cut the rod at length 'ind' and add the price of that piece.
+                take = price[ind-1] + dp[ind][N-rodLength]
+            dp[ind][N] = max(take, notTake)
+
+    # The answer will be in the bottom-right corner of the DP table.
+    return dp[n][n]
+
+
+-----------------------------------------------------------------------------
