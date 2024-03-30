@@ -21,4 +21,4 @@ class Solution(object):
             even= even.next
         odd.next = ehead
         return head
-#time complexity is o(n) and space complexity is o(1),the brute force approach is to use odd head and even head,but this approach increase space complexity
+#time complexity is o(n) and space complexity is o(1),the brute force approach is to use odd head and even head,but that is 2 pass,note space is o(1) only even if we use that approach ,as we are not creating new nodes
